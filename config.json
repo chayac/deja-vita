@@ -1,0 +1,3 @@
+// Dummy AWS config required by AWS JS SDK
+
+{ "accessKeyId": "test", "secretAccessKey": "test", "region": "us-east-1" }

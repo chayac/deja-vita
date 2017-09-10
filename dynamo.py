@@ -1,0 +1,147 @@
+# Run this file to populate the local DynamoDB instance
+# Start up Dynamo local: java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb
+
+import boto3
+
+# Get the service resource.
+dynamodb = boto3.resource('dynamodb', endpoint_url='http://localhost:8000')
+
+# Create the DynamoDB table for game, actor, and character.
+table = dynamodb.create_table(
+    TableName='all_games',
+    KeySchema=[
+        {
+            'AttributeName': 'game_name',
+            'KeyType': 'HASH'
+        },
+        {
+            'AttributeName': 'actor_name',
+            'KeyType': 'RANGE'
+        }
+    ],
+    AttributeDefinitions=[
+        {
+            'AttributeName': 'game_name',
+            'AttributeType': 'S'
+        },
+        {
+            'AttributeName': 'actor_name',
+            'AttributeType': 'S'
+        },
+    ],
+    ProvisionedThroughput={
+        'ReadCapacityUnits': 5,
+        'WriteCapacityUnits': 5
+    }
+)
+
+print(table)
+
+
+# Create table for unique game titles.
+table = dynamodb.create_table(
+    TableName='game_titles',
+    KeySchema=[
+        {
+            'AttributeName': 'game_name',
+            'KeyType': 'HASH'
+        },
+    ],
+    AttributeDefinitions=[
+        {
+            'AttributeName': 'game_name',
+            'AttributeType': 'S'
+        },
+    ],
+    ProvisionedThroughput={
+        'ReadCapacityUnits': 5,
+        'WriteCapacityUnits': 5
+    }
+)
+
+print(table)
+
+# Create indexes for actor/character/game table
+dynamodb = boto3.client('dynamodb', endpoint_url='http://localhost:8000')
+
+# Index on actor and game
+response = dynamodb.update_table(
+    AttributeDefinitions=[
+        {
+            "AttributeName": "game_name",
+            "AttributeType": "S"
+        },
+        {
+            "AttributeName": "actor_name",
+            "AttributeType": "S"
+        }
+    ],
+    TableName='all_games',
+    GlobalSecondaryIndexUpdates=[
+        {
+            'Create': {
+                'IndexName': 'actor_game',
+                'KeySchema': [
+                    {
+                        'AttributeName': 'actor_name',
+                        'KeyType': 'HASH'
+                    },
+                    {
+                        'AttributeName': 'game_name',
+                        'KeyType': 'RANGE'
+                    }
+                ],
+                'Projection': {
+                    'ProjectionType': 'ALL',
+                },
+                'ProvisionedThroughput': {
+                    'ReadCapacityUnits': 123,
+                    'WriteCapacityUnits': 123
+                }
+            },
+        },
+    ]
+    )
+
+print(response)
+
+# Index on character and game
+response = dynamodb.update_table(
+    AttributeDefinitions=[
+        {
+            "AttributeName": "character_name",
+            "AttributeType": "S"
+        },
+        {
+            "AttributeName": "game_name",
+            "AttributeType": "S"
+        }
+    ],
+    TableName='all_games',
+    GlobalSecondaryIndexUpdates=[
+        {
+            'Create': {
+                'IndexName': 'character_title',
+                'KeySchema': [
+                    {
+                        'AttributeName': 'character_name',
+                        'KeyType': 'HASH'
+                    },
+                    {
+                        'AttributeName': 'game_name',
+                        'KeyType': 'RANGE'
+                    }
+                ],
+                'Projection': {
+                    'ProjectionType': 'ALL',
+                },
+                'ProvisionedThroughput': {
+                    'ReadCapacityUnits': 123,
+                    'WriteCapacityUnits': 123
+                }
+            },
+        },
+    ]
+    )
+
+print(response)

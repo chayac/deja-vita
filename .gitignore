@@ -99,3 +99,12 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# Misc
+*.html
+crap/*
+bin/*
+share/*
+.DS_Store
+pip-selfcheck.json
+*.cfg
