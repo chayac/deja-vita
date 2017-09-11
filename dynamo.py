@@ -2,12 +2,19 @@
 # Start up Dynamo local: java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb
 
 import boto3
+import time
 
 # Get the service resource.
 dynamodb = boto3.resource('dynamodb', endpoint_url='http://localhost:8000')
 
+# Uncomment if you need to start over
+# all_games = dynamodb.Table('all_games')
+# all_games.delete()
+# game_titles = dynamodb.Table('game_titles')
+# game_titles.delete()
+
 # Create the DynamoDB table for game, actor, and character.
-table = dynamodb.create_table(
+all_games = dynamodb.create_table(
     TableName='all_games',
     KeySchema=[
         {
@@ -35,11 +42,11 @@ table = dynamodb.create_table(
     }
 )
 
-print(table)
+print(all_games)
 
 
 # Create table for unique game titles.
-table = dynamodb.create_table(
+game_titles = dynamodb.create_table(
     TableName='game_titles',
     KeySchema=[
         {
@@ -59,13 +66,19 @@ table = dynamodb.create_table(
     }
 )
 
-print(table)
+print(game_titles)
 
 # Create indexes for actor/character/game table
-dynamodb = boto3.client('dynamodb', endpoint_url='http://localhost:8000')
+# dynamodb = boto3.client('dynamodb', endpoint_url='http://localhost:8000')
+
+# Wait for table to become active before creating index
+status = ''
+while status != 'ACTIVE':
+    status = all_games.table_status
+    time.sleep(5)
 
 # Index on actor and game
-response = dynamodb.update_table(
+response = all_games.update(
     AttributeDefinitions=[
         {
             "AttributeName": "game_name",
@@ -105,8 +118,13 @@ response = dynamodb.update_table(
 
 print(response)
 
-# Index on character and game
-response = dynamodb.update_table(
+# Wait for table to become active before creating index
+status = ''
+while status != 'ACTIVE':
+    status = all_games.table_status
+    time.sleep(5)
+
+response = all_games.update(
     AttributeDefinitions=[
         {
             "AttributeName": "character_name",

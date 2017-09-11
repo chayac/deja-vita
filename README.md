@@ -13,9 +13,14 @@ npm install aws-sdk
 pip install boto3
 pip install beautifulscraper
 ```
+* Configure boto3 with dummy AWS credentials and region
 * Start up the local Dynamo instance: 
 ```shell
 java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb
+```
+* Setup the required Dynamo tables by running:
+```shell
+python dynamo.py
 ```
 
 # Populating the DynamoDB tables
