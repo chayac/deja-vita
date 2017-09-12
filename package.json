@@ -1,0 +1,23 @@
+{
+  "name": "deja-vita",
+  "version": "1.0.0",
+  "description": "Deja-Vita ========= This project provides a Python-based CLI to retrieve actors and characters for a specific video game and load them into a local DynamoDB instance. A Javascript-based frontend then accesses the DynamoDB instance to display what characters a given actor has played.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chayac/deja-vita.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chayac/deja-vita/issues"
+  },
+  "homepage": "https://github.com/chayac/deja-vita#readme",
+  "dependencies": {
+    "aws-sdk": "^2.112.0"
+  }
+}
