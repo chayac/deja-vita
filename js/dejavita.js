@@ -59,30 +59,30 @@ function getCharacterData(title) {
 }
 
 
-// function getCharacterActor(character, title) {
-// 	var character = character;
-// 	var title = title;
-// 	var docClient = new AWS.DynamoDB.DocumentClient({apiVersion: '2012-08-10'});
+function getCharacterActor(character, title) {
+	var character = character;
+	var title = title;
+	var docClient = new AWS.DynamoDB.DocumentClient({apiVersion: '2012-08-10'});
 
-// 	var params = {
-// 	  ProjectionExpression: 'actor_name',
-// 	  ExpressionAttributeValues: {
-// 	    ':c': character,
-// 	    ':t': title,
-// 	   },
-// 	  KeyConditionExpression: 'character_name = :c and game_name = :t',
-// 	  TableName: 'all_games',
-// 	  IndexName: 'character_title',
-// 	};
+	var params = {
+	  ProjectionExpression: 'actor_name',
+	  ExpressionAttributeValues: {
+	    ':c': character,
+	    ':t': title,
+	   },
+	  KeyConditionExpression: 'character_name = :c and game_name = :t',
+	  TableName: 'all_games',
+	  IndexName: 'character_title',
+	};
 
-// 	docClient.query(params, function(err, data) {
-// 	  if (err) {
-// 	    console.log("Error", err);
-// 	  } else {
-// 	    console.log(data.Items);
-// 	  }
-// 	});
-// }
+	docClient.query(params, function(err, data) {
+	  if (err) {
+	    console.log("Error", err);
+	  } else {
+	    console.log(data.Items);
+	  }
+	});
+}
 
 // Returns game titles and character names
 function getActorData(actor) {

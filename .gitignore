@@ -101,7 +101,6 @@ ENV/
 .mypy_cache/
 
 # Misc
-*.html
 crap/*
 bin/*
 share/*
