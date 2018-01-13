@@ -107,3 +107,12 @@ share/*
 .DS_Store
 pip-selfcheck.json
 *.cfg
+
+# cert key
+account.key
+
+# zappa settings
+zappa_settings.json
+
+node_modules/
+package-lock.json

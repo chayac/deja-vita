@@ -5,7 +5,7 @@ import boto3
 import time
 
 # Get the service resource.
-dynamodb = boto3.resource('dynamodb', endpoint_url='http://localhost:8000')
+dynamodb = boto3.resource('dynamodb')
 
 # Uncomment if you need to start over
 # all_games = dynamodb.Table('all_games')
@@ -74,7 +74,9 @@ print(game_titles)
 # Wait for table to become active before creating index
 status = ''
 while status != 'ACTIVE':
+    all_games = dynamodb.Table('all_games')
     status = all_games.table_status
+    print(status)
     time.sleep(5)
 
 # Index on actor and game
@@ -121,7 +123,9 @@ print(response)
 # Wait for table to become active before creating index
 status = ''
 while status != 'ACTIVE':
+    all_games = dynamodb.Table('all_games')
     status = all_games.table_status
+    print(status)
     time.sleep(5)
 
 response = all_games.update(

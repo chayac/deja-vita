@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Get Voice Actor Data</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.js"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='dejavita.js') }}"></script>
+  <style>
+    * {
+      padding: 0px;
+      margin: 0px;
+    }
+    body {
+      background-color: #1f1c31;
+    }
+
+    #header-container {
+      margin: 0 auto;
+      width: 100%;
+      text-align: center;
+    }
+
+    #bg-img {
+      position: absolute;
+      width: 100%;
+      height: auto;
+      opacity: 0.5;
+      z-index: -1;
+    }
+
+    #header-container h1, h3, label, #deja-vita-table h1 {
+      font-family: 'Courier New' !important;
+      color: white !important;
+    }
+
+    th, tr {
+      font-family: 'Courier New' !important;
+    }
+
+    #header-container h1 {
+      font-size: 45px;
+      padding-top: 2%;
+      text-shadow: 2px 2px 2px grey;
+    }
+
+    #game-dropdown {
+      padding: 20px;
+      width: 70%;
+      margin: 0 auto;
+    }
+
+    #new-games {
+      border: 1px;
+      padding: 20px;
+      width: 70%;
+      margin: 0 auto;
+    }
+
+    #deja-vita-table {
+      display: none;
+      width: 70%;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <img src="static/images/firewatch-bg.jpg" id="bg-img"/>
+  <div id="header-container">
+    <h1>deja vita</h1>
+    <div id="new-games">
+      <h3>Add a game to the DB</h3>
+      <form method="post" action="/new_game" class="ui tiny form">
+        <div class="two fields">
+          <div class="field">
+            <label>Game Title</label>
+            <input type="text" name="game_name" />
+          </div>
+          <div class="field">
+            <label>IMdB Url</label>
+            <input type="text" name="imdb_url" />
+          </div>
+        </div>
+        <button type="submit" class="ui button">Add Game</button>
+      </form>
+      <br />
+      <hr />
+    </div>
+    <div id="game-dropdown">
+      <div id="dd-first"></div>
+      <div id="dd-second"></div>
+    </div>
+  </div>
+  <div id="deja-vita-table">
+    <h1>Actor: <span class="actor-name"></span></h1>
+    <div class="table-render"></div>
+  </div>
+
+</body>
+
+</html>
