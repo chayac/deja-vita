@@ -53,6 +53,9 @@ def get_character_data():
 
 @app.route('/get_title_data')
 def get_title_data():
+    print('******')
+    print('working?')
+    print('******')
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table('game_titles')
     response = table.scan(

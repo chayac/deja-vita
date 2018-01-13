@@ -27,7 +27,9 @@ function renderCharacters(chars) {
   renderHTML += "<div class='field'>"
   renderHTML += "<select id='selectCharacters' class='ui dropdown' style='min-width: 100px;'>";
   for (var i = 0; i < chars.length; i ++) {
-    renderHTML += "<option value='" + chars[i].actor_name + "'>" + chars[i].character_name + "</option>";
+    if (chars[i].actor_name != 'Unknown' && chars[i].character_name != 'Unknown') {
+      renderHTML += "<option value='" + chars[i].actor_name + "'>" + chars[i].character_name + "</option>";
+    }
   }
   renderHTML += "</select></div>";
   renderHTML += "<div class='field'>"
