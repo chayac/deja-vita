@@ -18,6 +18,6 @@
   },
   "homepage": "https://github.com/chayac/deja-vita#readme",
   "dependencies": {
-    "aws-sdk": "^2.112.0"
+    "aws-sdk": "^2.814.0"
   }
 }
